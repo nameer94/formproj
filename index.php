@@ -329,7 +329,7 @@ function chk_text(elm, error_elm, min, max) {
 	var value = elm.value;
 	var error_elm = document.getElementById(error_elm);
 	//var reg = /^([[\u0600-\u065F\u066E-\u06FFA-Za-z]){1,15}$/;
-	var reg = new RegExp("^([[\\u0600-\\u065F\\u066E-\\u06FFA-Za-z]){"+min+","+max+"}$","g");
+	var reg = new RegExp("^([[\\u0600-\\u065F\\u066E-\\u06FFA-Za-z ]){"+min+","+max+"}$","g");
 	if (reg.test(value)) {
 		error_elm.innerHTML = '';
 		if(submitAll != false){
