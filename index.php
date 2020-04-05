@@ -319,6 +319,7 @@
 
 
 <script type="text/javascript">
+document.getElementById("formElm").reset();
 var msg1 = 'ادخال خاطئ';
 var msg2 = 'رقم خاطئ';
 var msg3 = 'يجب ادخال رقم هوية الاحوال او البطاقة الوطنية';
