@@ -7,7 +7,7 @@
 
 	<link rel="stylesheet" type="text/css" href="css/bulma.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Almarai&display=swap" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css?id=<?php echo rand(10000,9999999); ?>">
 </head>
 <body>
 
