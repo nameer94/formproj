@@ -131,7 +131,7 @@
 
       // FirebaseUI config.
       var uiConfig = {
-        signInSuccessUrl: 'http://192.168.64.2/form/form.php?auth=true',
+        signInSuccessUrl: 'https://myminha.com/form.php?auth=true',
         signInOptions: [{
           // Leave the lines as is for the providers you want to offer your users.
           provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
@@ -140,10 +140,10 @@
         // tosUrl and privacyPolicyUrl accept either url string or a callback
         // function.
         // Terms of service url/callback.
-        tosUrl: 'http://192.168.64.2/form/',
+        tosUrl: 'https://myminha.com',
         // Privacy policy url/callback.
         privacyPolicyUrl: function() {
-          window.location.assign('http://192.168.64.2/form/');
+          window.location.assign('https://myminha.com');
         }
       };
 
