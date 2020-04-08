@@ -1,24 +1,24 @@
 <?php
 session_start();
-
+if(isset($_GET['token']) AND $_GET['token'] == $_SESSION['rantoken']){
 	include 'dbconnect.php';
 
 	$feilds = "";
 	$values = "";
 	$exist = false;
 	$error = false;
-	if(is_numeric($_POST['idNum']) == false AND is_numeric($_POST['id2Num']) == false){
+	if(is_numeric($_GET['idNum']) == false AND is_numeric($_GET['id2Num']) == false){
 		header("Location: ../index.php?err=2");
 	}
-	if(is_numeric($_POST['idNum']) == true AND $_POST['idNum'] != 0 AND $_POST['idt'] = 1){
-		$id = $conn->real_escape_string($_POST['idNum']);
+	if(is_numeric($_GET['idNum']) == true AND $_GET['idNum'] != 0 AND $_GET['idt'] = 1){
+		$id = $conn->real_escape_string($_GET['idNum']);
 		$chkid_qry = $conn->query("SELECT id FROM forms WHERE idNum='$id'");
 		if($chkid_qry->num_rows > 0){
 			$exist = true;
 		}
 	}
-	if(is_numeric($_POST['id2Num']) == true AND $_POST['id2Num'] != 0 AND $_POST['idt'] = 2){
-		$id2 = $conn->real_escape_string($_POST['id2Num']);
+	if(is_numeric($_GET['id2Num']) == true AND $_GET['id2Num'] != 0 AND $_GET['idt'] = 2){
+		$id2 = $conn->real_escape_string($_GET['id2Num']);
 		$chkid2_qry = $conn->query("SELECT id FROM forms WHERE id2Num='$id2'");
 		if($chkid2_qry->num_rows > 0){
 			$exist = true;
@@ -26,7 +26,7 @@ session_start();
 	}
 
 	if($exist == false){
-		foreach($_POST as $key => $value) {
+		foreach($_GET as $key => $value) {
 			if($key != 'token'){
 			    $feilds = $feilds.', '.$conn->real_escape_string($key);
 			    if($key == 'idNum' OR $key == 'id2Num'){
@@ -37,12 +37,12 @@ session_start();
 			    	}
 			    }else{
 				    if(is_numeric($value)){
-					    if($value == 0 AND $key != 'idNum' AND $key != 'id2Num' AND $key != 'id2Numsec' AND $key != 'id2Numsec2' AND $key != 'members' AND $key != 'addNum' AND $key != 'add2Num' AND $key != 'add3Num'){
+					    if($value == 0 AND $key != 'idNum' AND $key != 'id2Num' AND $key != 'id2Numsec' AND $key != 'id2Numsec2' AND $key != 'members' AND $key != 'addNum' AND $key != 'add2Num' AND $key != 'add3Num' AND $key != 'addName' AND $key != 'addPhone'){
 							$error = true;
 					    }
 				    	$values = $values.', '.$conn->real_escape_string($value);
 				    }else{
-					    if(strlen($value) == 0){
+					    if(strlen($value) == 0 AND $key != 'addName' AND $key != 'addPhone'){
 							$error = true;
 					    }
 				    	$values = $values.', \''.$conn->real_escape_string($value).'\'';
@@ -77,4 +77,7 @@ session_start();
 	}else{
 		header("Location: ../exist.php");
 	}
+}else{
+	header("Location: ../index.php?err=2");
+}
 ?>

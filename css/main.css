@@ -121,3 +121,7 @@ input, select{
 #phoneauth{
 	display: none;
 }
+
+.membersdata, #aktdiv{
+	display: none;
+}

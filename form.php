@@ -30,7 +30,7 @@ $_SESSION['rantoken'] = $uid;
 
 <div class="container">
 
-<form id="formElm" method="post" onsubmit="event.preventDefault(); submitForm();" action="php/addform.php">
+<form id="formElm" method="get" onsubmit="event.preventDefault(); submitForm();" action="php/addform.php">
 
 
 <div class="htitle" style="margin-bottom: 10px">
@@ -67,6 +67,7 @@ $_SESSION['rantoken'] = $uid;
 
 			<input type="hidden" name="phone" id="phone" />
 			
+	<h2 style="margin-top: 20px">اسم الام الرباعي</h2>
 	<div class="field is-horizontal">
 	    <div class="field column">
 			<label>اسم الام الاول</label>
@@ -115,7 +116,7 @@ $_SESSION['rantoken'] = $uid;
 			<select name="bdyear" onchange="chk_select(this, 'errorbd')">
 				<option value="0" selected>سنة</option>
 				<?php
-				for ($i=1930; $i < 2021; $i++) { 
+				for ($i=1920; $i < 2021; $i++) { 
 				?>
 				<option value="<?php echo $i ?>"><?php echo $i ?></option>
 				<?php
@@ -130,7 +131,7 @@ $_SESSION['rantoken'] = $uid;
 				<option value="0" selected>اختر</option>
 
 				<option value="1">طالب</option>
-				<option value="2">موظفي حكومي</option>
+				<option value="2">موظف حكومي</option>
 				<option value="3">كاسب</option>
 				<option value="4">اخرى</option>
 			</select>
@@ -141,10 +142,12 @@ $_SESSION['rantoken'] = $uid;
 			<select name="study" onchange="chk_select(this, 'errorstudy')">
 				<option value="0" selected>اختر</option>
 
-				<option value="1">دراسة جامعية</option>
-				<option value="2">معهد او اعدادية</option>
-				<option value="3">متوسطة</option>
-				<option value="4">ابتدائية</option>
+				<option value="1">دراسات عليا</option>
+				<option value="2">جامعة</option>
+				<option value="3">معهد</option>
+				<option value="4">إعدادية</option>
+				<option value="5">متوسطة</option>
+				<option value="6">ابتدائية</option>
 			</select>
 			<div class="error" id="errorstudy"></div>
 	    </div>
@@ -190,11 +193,6 @@ $_SESSION['rantoken'] = $uid;
 
 			<div class="field is-horizontal">
 			    <div class="field column">
-					<label>رقم البطاقة التموينية</label>
-					<input type="text" name="tmNum" onchange="chk_num(this, 'error10', 1, 11)" />
-					<div class="error" id="error10"></div>
-			    </div>
-			    <div class="field column">
 					<label>اسم المركز التمويني</label>
 					<input type="text" name="mrkzName" onchange="chk_text(this, 'error11', 1, 20)" />
 					<div class="error" id="error11"></div>
@@ -203,6 +201,11 @@ $_SESSION['rantoken'] = $uid;
 					<label>رقم المركز التمويني</label>
 					<input type="text" name="mrkzNum" onchange="chk_num(this, 'error12', 1, 30)" />
 					<div class="error" id="error12"></div>
+			    </div>
+			    <div class="field column">
+					<label>رقم البطاقة التموينية</label>
+					<input type="text" name="tmNum" onchange="chk_num(this, 'error10', 1, 11)" />
+					<div class="error" id="error10"></div>
 			    </div>
 			</div>
 		</article>
@@ -221,8 +224,32 @@ $_SESSION['rantoken'] = $uid;
 						<option value="1">ملك</option>
 						<option value="2">ايجار</option>
 						<option value="3">عشوائيات</option>
+						<option value="4">اخرى</option>
 					</select>
 					<div class="error" id="errorliv"></div>
+			    </div>
+			    <div class="field column">
+					<label>المحافظة</label>
+					<select name="moh" onchange="chk_select(this, 'errormoh'); selAkt(this.value)">
+						<option value="0" selected>اختر</option>
+						<?php
+						$moh = array('', 'اربيل', 'الانبار', 'البصره', 'القادسية', 'السليمانية', 'المثنى', 'النجف الاشرف', 'بابل', 'بغداد', 'دهوك', 'ديالى', 'ذي قار', 'صلاح الدين', 'كربلاء', 'كركوك', 'ميسان', 'نينوى', 'واسط');
+						for ($i=1; $i < count($moh); $i++) { 
+						?>
+						<option value="<?php echo $i ?>"><?php echo $moh[$i] ?></option>
+						<?php
+						}
+						?>
+
+					</select>
+					<div class="error" id="errormoh"></div>
+			    </div>
+			    <div class="field column" id="aktdiv">
+					<label>القضاء</label>
+					<select name="akt" onchange="chk_select(this, 'errorakt')" id="akt">
+						<option value="0" selected>اختر</option>
+					</select>
+					<div class="error" id="errorakt"></div>
 			    </div>
 			    <div class="field column" id="addr1">
 					<label>محلة</label>
@@ -239,33 +266,17 @@ $_SESSION['rantoken'] = $uid;
 					<input type="text" name="add2Num" id="addr3v" onchange="chk_num(this, 'error14', 1, 10)" />
 					<div class="error" id="error14"></div>
 			    </div>
-			    <div class="field column">
-					<label>المحافظة</label>
-					<select name="moh" onchange="chk_select(this, 'errormoh')">
-						<option value="0" selected>اختر</option>
-						<?php
-						$moh = array('', 'بغداد', 'اربيل', 'الانبار', 'بابل', 'دهوك', 'كربلاء', 'البصره', 'السليمانية', 'واسط', 'نينوى', 'كركوك', 'النجف', 'ديالى', 'صلاح الدين', 'ميسان', 'الديوانية', 'المثنى', 'ذي قار');
-						for ($i=1; $i < count($moh); $i++) { 
-						?>
-						<option value="<?php echo $i ?>"><?php echo $moh[$i] ?></option>
-						<?php
-						}
-						?>
-
-					</select>
-					<div class="error" id="errormoh"></div>
-			    </div>
 			</div>
 
 			<div class="field is-horizontal">
 			    <div class="field column">
-					<label>اسم المختار</label>
-					<input type="text" name="addName" onchange="chk_text(this, 'error15', 1, 20)" />
+					<label>اسم المختار (اختياري)</label>
+					<input type="text" name="addName" onchange="chk_text(this, 'error15', 0, 20)" />
 					<div class="error" id="error15"></div>
 			    </div>
 			    <div class="field column">
-					<label>رقم هاتف المختار</label>
-					<input type="text" name="addPhone" onchange="chk_num(this, 'error16', 1, 11)" placeholder="07xxxxxxxxx" />
+					<label>رقم هاتف المختار (اختياري)</label>
+					<input type="text" name="addPhone" onchange="chk_num(this, 'error16', 0, 11)" placeholder="07xxxxxxxxx" />
 					<div class="error" id="error16"></div>
 			    </div>
 			</div>
@@ -279,7 +290,7 @@ $_SESSION['rantoken'] = $uid;
 <div class="htitle" id="memsel">
 	<h3>استمارة افراد الأسرة</h3>
 	<h2>عدد الافراد</h2>
-	<select name="members" id="membersnum" onchange="setMembers(this)" style="width: 120px; margin-top: 10px; margin-bottom: 10px">
+	<select name="members" id="membersnum" onchange="setMembersNum()" style="width: 120px; margin-top: 10px; margin-bottom: 10px">
 		<option value="0" selected>0</option>
 		<?php
 		for ($i=1; $i < 21; $i++) { 
@@ -314,6 +325,159 @@ $_SESSION['rantoken'] = $uid;
 <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-analytics.js"></script>
 
 <script>
+var akt = {
+"نينوى":	["قضاء الموصل",
+	"قضاء الحمدانية",
+	"قضاء تلكيف",
+	"قضاء سنجار",
+	"قضاء تلعفر",
+	"قضاء الشيخان",
+	"قضاء الحضر",
+	"قضاء البعاج",
+	"قضاء مخمور"],
+	
+"اربيل":	["قضاء أربيل",
+	"قضاء بنصلاوة (دشتي هولير)",
+	"قضاء سوران",
+	"قضاء شقلاوة",
+	"قضاء جومان",
+	"قضاء كويسنجق",
+	"قضاء ميركسور",
+	"قضاء خبات"],
+	
+"المثنى":	["قضاء السماوة (مركز المحافظة)",
+	"قضاء الرميثة",
+	"قضاء الخضر",
+	"قضاء الوركاء",
+	"قضاء السلمان"],
+	
+"ميسان":	["قضاء العمارة",
+	"قضاء علي الغربي",
+	"قضاء الميمونة",
+	"قضاء قلعة صالح",
+	"قضاء المجر الكبير",
+	"قضاء الكحلاء"],
+	
+"كركوك":	["قضاء كركوك",
+	"قضاء الحويجة",
+	"قضاء داقوق",
+	"قضاء دبس"],
+	
+"دهوك":	["قضاء دهوك",
+	"قضاء سميل",
+	"قضاء زاخو",
+	"قضاء العمادية",
+	"قضاء بردرش",
+	"قضاء عقرة"],
+	
+"كربلاء":	["قضاء كربلاء",
+	"قضاء عين تمر",
+	"قضاء الهندية",
+	"قضاء الحر"],
+	
+"ديالى":	["قضاء بعقوبة",
+	"قضاء المقدادية",
+	"قضاء الخالص",
+	"قضاء خانقين",
+	"قضاء بلدروز",
+	"قضاء كفري",
+	"قضاء خان بني سعد"],
+	
+"البصره":	["قضاء البصرة",
+	"قضاء أبي الخصيب",
+	"قضاء الزبير",
+	"قضاء القرنة",
+	"قضاء الفاو",
+	"قضاء شط العرب",
+	"قضاء المدينة",
+	"قضاء الدير"],
+	
+"بغداد":	["قضاء الرصافة",
+	"قضاء الأعظمية",
+	"قضاء الشعب",
+	"قضاء الصدر الاول",
+	"قضاء الصدر الثاني",
+	"قضاء المدائن",
+	"قضاء الحسينية",
+	"قضاء المعامل",
+	"قضاء الكرخ",
+	"قضاء الكاظمية",
+	"قضاء المحمودية",
+	"قضاء أبي غريب",
+	"قضاء الطارمية",
+	"قضاء الشعلة"],
+	
+"بابل":	["قضاء الحلة",
+	"قضاء المحاويل",
+	"قضاء الهاشمية",
+	"قضاء المسيب",
+	"قضاء الحمزة الغربي (المدحتية سابقا)",
+	"قضاء القاسم",
+	"قضاء كوثى (ناحية المشروع سابقاً)"],
+	
+"الانبار":	["قضاء الرمادي",
+	"قضاء هيت",
+	"قضاء الفلوجة",
+	"قضاء عانة",
+	"قضاء حديثة",
+	"قضاء الرطبة",
+	"قضاء القائم",
+	"قضاء راوة",
+	"قضاء الخالدية",
+	"قضاء العامرية",
+	"قضاء الكرمة"],
+	
+"القادسية":	["الديوانية" ,
+	"قضاء عفك",
+	"قضاء الشامية",
+	"قضاء الحمزة"],
+	
+"صلاح الدين":	["قضاء تكريت",
+	"قضاء طوز خورماتو",
+	"قضاء سامراء",
+	"قضاء بلد",
+	"قضاء بيجي",
+	"قضاء الدور",
+	"قضاء الشرقاط",
+	"قضاء الدجيل",
+	"قضاء آمرلي"],
+	
+"السليمانية":	["قضاء السليمانية",
+	"قضاء قره داغ",
+	"قضاء شارباريز",
+	"قضاء ماوت",
+	"قضاء بشدر",
+	"قضاء رانية",
+	"قضاء دوكان",
+	"قضاء دربندخان",
+	"قضاء كلار",
+	"قضاء جمجمال",
+	"قضاء حلبجة",
+	"قضاء شاره زور",
+	"قضاء سيد صادق",
+	"قضاء بنجوين"],
+	
+"النجف الاشرف":	["قضاء النجف",
+	"قضاء الكوفه",
+	"قضاء المناذرة",
+	"قضاء المشخاب"],
+	
+"ذي قار":	["قضاء الناصرية",
+	"قضاء الرفاعي",
+	"قضاء سوق الشيوخ",
+	"قضاء الجبايش",
+	"قضاء الشطرة",
+	"قضاء الدواية",
+	"قضاء الفهود"],
+	
+"واسط":	["قضاء الكوت",
+	"قضاء النعمانية",
+	"قضاء الحي",
+	"قضاء بدرة",
+	"قضاء الصويرة",
+	"قضاء العزيزية"]
+	};
+
   // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyCKdyTDRyKMzRodnO2Cv-SUuxoulQdTWl8",
@@ -381,18 +545,32 @@ function chooseNo() {
 function chk_text(elm, error_elm, min, max) {
 	var value = elm.value;
 	var error_elm = document.getElementById(error_elm);
-	//var reg = /^([[\u0600-\u065F\u066E-\u06FFA-Za-z]){1,15}$/;
 	var reg = new RegExp("^([[\\u0600-\\u065F\\u066E-\\u06FFA-Za-z ]){"+min+","+max+"}$","g");
 	if (reg.test(value)) {
 		error_elm.innerHTML = '';
 		if(submitAll != false){
 			submitAll = true;
 		}
-		//error_elm.style.display = 'none';
 	}else{
 		error_elm.innerHTML = msg1;
 		submitAll = false;
-		//error_elm.style.display = 'block';
+	}
+}
+
+function chk_textnum(elm, error_elm, min, max) {
+	var value = elm.value;
+	value = value.replace(/١/g, '1').replace(/٢/g, '2').replace(/٣/g, '3').replace(/٤/g, '4').replace(/٥/g, '5').replace(/٦/g, '6').replace(/٧/g, '7').replace(/٨/g, '8').replace(/٩/g, '9').replace(/٠/g, '0');
+	elm.value = value;
+	var error_elm = document.getElementById(error_elm);
+	var reg = new RegExp("^([[\\u0600-\\u065F\\u066E-\\u06FFA-Za-z0-9 ]){"+min+","+max+"}$","g");
+	if (reg.test(value)) {
+		error_elm.innerHTML = '';
+		if(submitAll != false){
+			submitAll = true;
+		}
+	}else{
+		error_elm.innerHTML = msg1;
+		submitAll = false;
 	}
 }
 
@@ -401,14 +579,12 @@ function chk_num(elm, error_elm, min, max, err = false) {
 	value = value.replace(/١/g, '1').replace(/٢/g, '2').replace(/٣/g, '3').replace(/٤/g, '4').replace(/٥/g, '5').replace(/٦/g, '6').replace(/٧/g, '7').replace(/٨/g, '8').replace(/٩/g, '9').replace(/٠/g, '0');
 	elm.value = value;
 	var error_elm = document.getElementById(error_elm);
-	//var reg = /^([0-9]){1,15}$/;
 	var reg = new RegExp("^([[0-9]){"+min+","+max+"}$","g");
 	if (reg.test(value)) {
 		error_elm.innerHTML = '';
 		if(submitAll != false){
 			submitAll = true;
 		}
-		//error_elm.style.display = 'none';
 	}else{
 		if(err == false){
 			error_elm.innerHTML = msg2;
@@ -416,7 +592,6 @@ function chk_num(elm, error_elm, min, max, err = false) {
 			error_elm.innerHTML = msg3;
 		}
 		submitAll = false;
-		//error_elm.style.display = 'block';
 	}
 }
 
@@ -441,8 +616,8 @@ function chk_idsec(elm, error_elm, min, max, m='') {
 		chk_num(idelm, 'error8'+m, min, max);
 	}else{
 		chk_num(id2elm, 'error9'+m, min, max);
-		chk_num(id2Numsec, 'error9sec'+m, min, max);
-		chk_num(id2Numsec2, 'error9sec2'+m, min, max);
+		chk_textnum(id2Numsec, 'error9sec'+m, min, max);
+		chk_textnum(id2Numsec2, 'error9sec2'+m, min, max);
 	}
 }
 
@@ -466,6 +641,17 @@ function chk_select(elm, error_elm) {
 function submitForm() {
 
 	submitAll = true;
+
+	var num = document.getElementById("membersnum").value;
+	var mems = document.querySelectorAll('.membersdata');
+	for (var i = 1; i <= 20; i++) {
+		if(i <= num){
+			document.getElementById("mem"+i).style.display = 'block';
+		}else{
+			document.getElementById("mem"+i).style.display = 'none';
+			document.getElementById("mem"+i).innerHTML = '';
+		}
+	}
 
 	var inputs = document.querySelectorAll('input[type=text]');
 	var selects = document.querySelectorAll('select');
@@ -525,6 +711,7 @@ function submitForm() {
 			}else{
 				document.getElementById("idNum").value = '0';
 			}
+
 			selAddr();
 	        unsubscribe();
 
@@ -535,6 +722,33 @@ function submitForm() {
 	}
 
 	return false;
+}
+
+function setMembersNum() {
+	var num = document.getElementById("membersnum").value;
+	var mems = document.querySelectorAll('.membersdata');
+	for (var i = 1; i <= 20; i++) {
+		if(i <= num){
+			document.getElementById("mem"+i).style.display = 'block';
+		}else{
+			document.getElementById("mem"+i).style.display = 'none';
+			document.querySelector("input[name=mname"+i+"]").value = '';
+			document.querySelector("input[name=mfName"+i+"]").value = '';
+			document.querySelector("input[name=mg1Name"+i+"]").value = '';
+			document.querySelector("input[name=mg2Name"+i+"]").value = '';
+			document.querySelector("select[name=mbdday"+i+"]").value = 0;
+			document.querySelector("select[name=mbdmonth"+i+"]").value = 0;
+			document.querySelector("select[name=mbdyear"+i+"]").value = 0;
+			document.querySelector("select[name=mjob"+i+"]").value = 0;
+			document.querySelector("select[name=mstudy"+i+"]").value = 0;
+			document.querySelector("select[name=mgender"+i+"]").value = 0;
+			document.querySelector("select[name=idtm"+i+"]").value = 1;
+			document.querySelector("input[name=idNumm"+i+"]").value = '';
+			document.querySelector("input[name=id2Numm"+i+"]").value = '';
+			document.querySelector("input[name=id2Numsecm"+i+"]").value = '';
+			document.querySelector("input[name=id2Numsecm"+i+"]").value = '';
+		}
+	}
 }
 
 function setMembers() {
@@ -555,9 +769,9 @@ function setMembers() {
 		years += '<option value="'+i+'">'+i+'</option>';
 	}
 
-	for (var i = 1; i <= members; i++) {
+	for (var i = 1; i <= 20; i++) {
 		inhtml += `
-<article class="panel is-info" style="background: #fff; height: 100%">
+<article class="panel is-info membersdata" style="background: #fff; height: 100%;" id="mem${i}">
   <p class="panel-heading">
       الفرد رقم ${i}  
   </p>
@@ -657,7 +871,7 @@ function setMembers() {
 			<option value="0" selected>اختر</option>
 
 			<option value="1">طالب</option>
-			<option value="2">موظفي حكومي</option>
+			<option value="2">موظف حكومي</option>
 			<option value="3">كاسب</option>
 			<option value="4">اخرى</option>
 		</select>
@@ -668,10 +882,12 @@ function setMembers() {
 		<select name="mstudy${i}" onchange="chk_select(this, 'errorstudy7l${i}')">
 			<option value="0" selected>اختر</option>
 
-			<option value="1">دراسة جامعية</option>
-			<option value="2">معهد او اعدادية</option>
-			<option value="3">متوسطة</option>
-			<option value="4">ابتدائية</option>
+			<option value="1">دراسات عليا</option>
+			<option value="2">جامعة</option>
+			<option value="3">معهد</option>
+			<option value="4">إعدادية</option>
+			<option value="5">متوسطة</option>
+			<option value="6">ابتدائية</option>
 		</select>
 		<div class="error" id="errorstudy7l${i}"></div>
     </div>
@@ -682,8 +898,11 @@ function setMembers() {
 		`;
 	}
 
-	elm.innerHTML = inhtml;
+	lastmem = members;
+	elm.innerHTML += inhtml;
 }
+
+setMembers();
 
 function selId(id, m='') {
 	if(id == 1){
@@ -702,7 +921,7 @@ function selId(id, m='') {
 function selAddr() {
 	var adr = document.getElementById("livtype").value;
 
-	if(adr == 3){
+	if(adr == 3 || adr == 4){
 		document.getElementById("addr1v").value = '0';
 		document.getElementById("addr2v").value = '0';
 		document.getElementById("addr3v").value = '0';
@@ -715,6 +934,19 @@ function selAddr() {
 		document.getElementById("addr1").style.display = 'block';
 		document.getElementById("addr2").style.display = 'block';
 		document.getElementById("addr3").style.display = 'block';
+	}
+}
+
+function selAkt(moh) {
+	var elm = document.getElementById("akt");
+	if(elm.value == 0){
+		elm.value = 0;
+		var mohs = ['', 'اربيل', 'الانبار', 'البصره', 'القادسية', 'السليمانية', 'المثنى', 'النجف الاشرف', 'بابل', 'بغداد', 'دهوك', 'ديالى', 'ذي قار', 'صلاح الدين', 'كربلاء', 'كركوك', 'ميسان', 'نينوى', 'واسط'];
+		elm.innerHTML = '<option value="0" selected>اختر</option>';
+		for (var i = 0; i < akt[mohs[moh]].length; i++) {
+			elm.innerHTML += '<option value="'+(i+1)+'">'+akt[mohs[moh]][i]+'</option>'
+		}
+		document.getElementById("aktdiv").style.display = 'block';
 	}
 }
 

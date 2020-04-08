@@ -77,12 +77,13 @@ $rows = $form_qry->fetch_assoc();
             <div class="error" id="error5"></div>
         </div>
         <div class="field column">
-            <label>رقم الهاتف</label>
-            <input type="text" name="phone" value="<?php echo htmlspecialchars($rows['phone'], ENT_QUOTES, 'UTF-8') ?>" readonly />
+            <label>رقم الهاتف النقال</label>
+            <input type="text" name="phone" value="0<?php echo htmlspecialchars($rows['phone'], ENT_QUOTES, 'UTF-8') ?>" readonly />
             <div class="error" id="error16"></div>
         </div>
     </div>
             
+    <h2 style="margin-top: 20px">اسم الام الرباعي</h2>
     <div class="field is-horizontal">
         <div class="field column">
             <label>اسم الام الاول</label>
@@ -114,14 +115,14 @@ $rows = $form_qry->fetch_assoc();
         <div class="field column">
             <label>المهنة</label>
               <?php
-              $job = array('', 'طالب', 'موظفي حكومي', 'كاسب', 'اخرى');
+              $job = array('', 'طالب', 'موظف حكومي', 'كاسب', 'اخرى');
               ?>
             <input type="text" name="job" value="<?php echo $job[$rows['job']] ?>" readonly />
         </div>
         <div class="field column">
             <label>التحصيل الدارسي</label>
               <?php
-              $study = array('', 'دراسة جامعية', 'معهد او اعدادية', 'متوسطة', 'ابتدائية');
+              $study = array('', 'دراسات عليا', 'جامعة', 'معهد', 'إعدادية', 'متوسطة', 'ابتدائية');
               ?>
             <input type="text" name="study" value="<?php echo $study[$rows['study']] ?>" readonly />
         </div>
@@ -159,11 +160,6 @@ $rows = $form_qry->fetch_assoc();
 
             <div class="field is-horizontal">
                 <div class="field column">
-                    <label>رقم البطاقة التموينية</label>
-                    <input type="text" name="tmNum" value="<?php echo htmlspecialchars($rows['tmNum'], ENT_QUOTES, 'UTF-8') ?>" readonly />
-                    <div class="error" id="error10"></div>
-                </div>
-                <div class="field column">
                     <label>اسم المركز التمويني</label>
                     <input type="text" name="mrkzName" value="<?php echo htmlspecialchars($rows['mrkzName'], ENT_QUOTES, 'UTF-8') ?>" readonly />
                     <div class="error" id="error11"></div>
@@ -172,6 +168,11 @@ $rows = $form_qry->fetch_assoc();
                     <label>رقم المركز التمويني</label>
                     <input type="text" name="mrkzNum" value="<?php echo htmlspecialchars($rows['mrkzNum'], ENT_QUOTES, 'UTF-8') ?>" readonly />
                     <div class="error" id="error12"></div>
+                </div>
+                <div class="field column">
+                    <label>رقم البطاقة التموينية</label>
+                    <input type="text" name="tmNum" value="<?php echo htmlspecialchars($rows['tmNum'], ENT_QUOTES, 'UTF-8') ?>" readonly />
+                    <div class="error" id="error10"></div>
                 </div>
             </div>
         </article>
@@ -185,9 +186,172 @@ $rows = $form_qry->fetch_assoc();
                 <div class="field column">
                     <label>نوع السكن</label>
                       <?php
-                      $liv = array('', 'ملك', 'ايجار', 'عشوائيات');
+                      $liv = array('', 'ملك', 'ايجار', 'عشوائيات', 'اخرى');
                       ?>
                     <input type="text" name="liv" value="<?php echo $liv[$rows['liv']] ?>" readonly />
+                </div>
+                <div class="field column">
+                    <label>المحافظة</label>
+                      <?php
+                      $moh = array('', 'اربيل', 'الانبار', 'البصره', 'القادسية', 'السليمانية', 'المثنى', 'النجف الاشرف', 'بابل', 'بغداد', 'دهوك', 'ديالى', 'ذي قار', 'صلاح الدين', 'كربلاء', 'كركوك', 'ميسان', 'نينوى', 'واسط');
+                      ?>
+                    <input type="text" name="moh" value="<?php echo $moh[$rows['moh']] ?>" readonly />
+                </div>
+                <div class="field column">
+                    <label>القضاء</label>
+                      <?php
+                      $akt = array("نينوى"=> array("قضاء الموصل",
+    "قضاء الحمدانية",
+    "قضاء تلكيف",
+    "قضاء سنجار",
+    "قضاء تلعفر",
+    "قضاء الشيخان",
+    "قضاء الحضر",
+    "قضاء البعاج",
+    "قضاء مخمور"),
+    
+"اربيل"=>    array("قضاء أربيل",
+    "قضاء بنصلاوة (دشتي هولير)",
+    "قضاء سوران",
+    "قضاء شقلاوة",
+    "قضاء جومان",
+    "قضاء كويسنجق",
+    "قضاء ميركسور",
+    "قضاء خبات"),
+    
+"المثنى"=>   array("قضاء السماوة (مركز المحافظة)",
+    "قضاء الرميثة",
+    "قضاء الخضر",
+    "قضاء الوركاء",
+    "قضاء السلمان"),
+    
+"ميسان"=>    array("قضاء العمارة",
+    "قضاء علي الغربي",
+    "قضاء الميمونة",
+    "قضاء قلعة صالح",
+    "قضاء المجر الكبير",
+    "قضاء الكحلاء"),
+    
+"كركوك"=>    array("قضاء كركوك",
+    "قضاء الحويجة",
+    "قضاء داقوق",
+    "قضاء دبس"),
+    
+"دهوك"=> array("قضاء دهوك",
+    "قضاء سميل",
+    "قضاء زاخو",
+    "قضاء العمادية",
+    "قضاء بردرش",
+    "قضاء عقرة"),
+    
+"كربلاء"=>   array("قضاء كربلاء",
+    "قضاء عين تمر",
+    "قضاء الهندية",
+    "قضاء الحر"),
+    
+"ديالى"=>    array("قضاء بعقوبة",
+    "قضاء المقدادية",
+    "قضاء الخالص",
+    "قضاء خانقين",
+    "قضاء بلدروز",
+    "قضاء كفري",
+    "قضاء خان بني سعد"),
+    
+"البصره"=>   array("قضاء البصرة",
+    "قضاء أبي الخصيب",
+    "قضاء الزبير",
+    "قضاء القرنة",
+    "قضاء الفاو",
+    "قضاء شط العرب",
+    "قضاء المدينة",
+    "قضاء الدير"),
+    
+"بغداد"=>    array("قضاء الرصافة",
+    "قضاء الأعظمية",
+    "قضاء الشعب",
+    "قضاء الصدر الاول",
+    "قضاء الصدر الثاني",
+    "قضاء المدائن",
+    "قضاء الحسينية",
+    "قضاء المعامل",
+    "قضاء الكرخ",
+    "قضاء الكاظمية",
+    "قضاء المحمودية",
+    "قضاء أبي غريب",
+    "قضاء الطارمية",
+    "قضاء الشعلة"),
+    
+"بابل"=> array("قضاء الحلة",
+    "قضاء المحاويل",
+    "قضاء الهاشمية",
+    "قضاء المسيب",
+    "قضاء الحمزة الغربي (المدحتية سابقا)",
+    "قضاء القاسم",
+    "قضاء كوثى (ناحية المشروع سابقاً)"),
+    
+"الانبار"=>  array("قضاء الرمادي",
+    "قضاء هيت",
+    "قضاء الفلوجة",
+    "قضاء عانة",
+    "قضاء حديثة",
+    "قضاء الرطبة",
+    "قضاء القائم",
+    "قضاء راوة",
+    "قضاء الخالدية",
+    "قضاء العامرية",
+    "قضاء الكرمة"),
+    
+"القادسية"=> array("الديوانية" ,
+    "قضاء عفك",
+    "قضاء الشامية",
+    "قضاء الحمزة"),
+    
+"صلاح الدين"=>   array("قضاء تكريت",
+    "قضاء طوز خورماتو",
+    "قضاء سامراء",
+    "قضاء بلد",
+    "قضاء بيجي",
+    "قضاء الدور",
+    "قضاء الشرقاط",
+    "قضاء الدجيل",
+    "قضاء آمرلي"),
+    
+"السليمانية"=>   array("قضاء السليمانية",
+    "قضاء قره داغ",
+    "قضاء شارباريز",
+    "قضاء ماوت",
+    "قضاء بشدر",
+    "قضاء رانية",
+    "قضاء دوكان",
+    "قضاء دربندخان",
+    "قضاء كلار",
+    "قضاء جمجمال",
+    "قضاء حلبجة",
+    "قضاء شاره زور",
+    "قضاء سيد صادق",
+    "قضاء بنجوين"),
+    
+"النجف الاشرف"=> array("قضاء النجف",
+    "قضاء الكوفه",
+    "قضاء المناذرة",
+    "قضاء المشخاب"),
+    
+"ذي قار"=>   array("قضاء الناصرية",
+    "قضاء الرفاعي",
+    "قضاء سوق الشيوخ",
+    "قضاء الجبايش",
+    "قضاء الشطرة",
+    "قضاء الدواية",
+    "قضاء الفهود"),
+    
+"واسط"=> array("قضاء الكوت",
+    "قضاء النعمانية",
+    "قضاء الحي",
+    "قضاء بدرة",
+    "قضاء الصويرة",
+    "قضاء العزيزية"));
+                      ?>
+                    <input type="text" name="moh" value="<?php echo $akt[$moh[$rows['moh']]][$rows['akt']-1] ?>" readonly />
                 </div>
                 <div class="field column" id="addr1" style="display: <?php if($rows['liv'] == 3){echo 'none';}else{echo 'block';} ?>">
                     <label>محلة</label>
@@ -203,13 +367,6 @@ $rows = $form_qry->fetch_assoc();
                     <label>دار</label>
                     <input type="text" name="add2Num" id="addr3v" value="<?php echo htmlspecialchars($rows['add2Num'], ENT_QUOTES, 'UTF-8') ?>" readonly />
                     <div class="error" id="error14"></div>
-                </div>
-                <div class="field column">
-                    <label>نوع السكن</label>
-                      <?php
-                      $moh = array('', 'بغداد', 'اربيل', 'الانبار', 'بابل', 'دهوك', 'كربلاء', 'البصره', 'السليمانية', 'واسط', 'نينوى', 'كركوك', 'النجف', 'ديالى', 'صلاح الدين', 'ميسان', 'الديوانية', 'المثنى', 'ذي قار');
-                      ?>
-                    <input type="text" name="moh" value="<?php echo $moh[$rows['moh']] ?>" readonly />
                 </div>
             </div>
 
@@ -280,8 +437,8 @@ function setMembers() {
     var members = <?php echo $rows['members'] ?>;
     var memdata = <?php echo $rows['memdata'] ?>;
     var memdataJson = memdata;
-    var jobs = ['', 'طالب', 'موظفي حكومي', 'كاسب', 'اخرى'];
-    var studys = ['', 'دراسة جامعية', 'معهد او اعدادية', 'متوسطة', 'ابتدائية'];
+    var jobs = ['', 'طالب', 'موظفي حكوم', 'كاسب', 'اخرى'];
+    var studys = ['', 'دراسات عليا', 'جامعة', 'معهد', 'إعدادية', 'متوسطة', 'ابتدائية'];
     var genders = ['', 'ذكر', 'انثى'];
     var elm = document.getElementById("members");
     var inhtml = '';

@@ -66,7 +66,7 @@ if (!isset($_SESSION['admin'])) {
 							  		<div class="column">
 										<?php
 
-										$moh = array('', 'بغداد', 'اربيل', 'الانبار', 'بابل', 'دهوك', 'كربلاء', 'البصره', 'السليمانية', 'واسط', 'نينوى', 'كركوك', 'النجف', 'ديالى', 'صلاح الدين', 'ميسان', 'الديوانية', 'المثنى', 'ذي قار');
+										$moh = array('', 'اربيل', 'الانبار', 'البصره', 'القادسية', 'السليمانية', 'المثنى', 'النجف الاشرف', 'بابل', 'بغداد', 'دهوك', 'ديالى', 'ذي قار', 'صلاح الدين', 'كربلاء', 'كركوك', 'ميسان', 'نينوى', 'واسط');
 										for ($i=1; $i < 7; $i++) { 
 										$moh_qry = $conn->query("SELECT COUNT(*) AS num FROM forms WHERE moh='$i'");
 		  	$nums_row = $moh_qry->fetch_assoc();
@@ -170,6 +170,18 @@ if (!isset($_SESSION['admin'])) {
 										<a href="report.php?liv=3"><div value="<?php echo $i ?>">عشوائيات <span class="tag is-light"><?php echo $nums_row['num'] ?></span></div></a>
 									</div>
 								</div>
+								<?php
+								$moh_qry = $conn->query("SELECT COUNT(*) AS num FROM forms WHERE liv=4");
+		  	$nums_row = $moh_qry->fetch_assoc();
+								?>
+								<div class="filter">
+									<div>
+										<input type="checkbox" name="liv" value="4" onchange="setCheck(this, 'liv')">
+									</div>
+									<div>
+										<a href="report.php?liv=4"><div value="<?php echo $i ?>">اخرى <span class="tag is-light"><?php echo $nums_row['num'] ?></span></div></a>
+									</div>
+								</div>
 								
 							</div>
 						</article>
@@ -250,7 +262,7 @@ if (!isset($_SESSION['admin'])) {
 										<input type="checkbox" name="job" value='2' onchange="setCheck(this, 'job')">
 									</div>
 									<div>
-										<a href='report.php?job=2'><div>موظفي حكومي <span class="tag is-light"><?php echo $nums_row['num'] ?></span></div></a>
+										<a href='report.php?job=2'><div>موظف حكومي <span class="tag is-light"><?php echo $nums_row['num'] ?></span></div></a>
 									</div>
 								</div>
 								
@@ -298,10 +310,9 @@ if (!isset($_SESSION['admin'])) {
 										<input type="checkbox" name="study" value='1' onchange="setCheck(this, 'study')">
 									</div>
 									<div>
-										<a href='report.php?study=1'><div>دراسة جامعية <span class="tag is-light"><?php echo $nums_row['num'] ?></span></div></a>
+										<a href='report.php?study=1'><div>دراسات عليا <span class="tag is-light"><?php echo $nums_row['num'] ?></span></div></a>
 									</div>
 								</div>
-								
 								<?php
 								$moh_qry = $conn->query("SELECT COUNT(*) AS num FROM forms WHERE study=2");
 		  	$nums_row = $moh_qry->fetch_assoc();
@@ -311,10 +322,9 @@ if (!isset($_SESSION['admin'])) {
 										<input type="checkbox" name="study" value='2' onchange="setCheck(this, 'study')">
 									</div>
 									<div>
-										<a href='report.php?study=2'><div>معهد او اعدادية <span class="tag is-light"><?php echo $nums_row['num'] ?></span></div></a>
+										<a href='report.php?study=2'><div>جامعة <span class="tag is-light"><?php echo $nums_row['num'] ?></span></div></a>
 									</div>
 								</div>
-								
 								<?php
 								$moh_qry = $conn->query("SELECT COUNT(*) AS num FROM forms WHERE study=3");
 		  	$nums_row = $moh_qry->fetch_assoc();
@@ -324,7 +334,7 @@ if (!isset($_SESSION['admin'])) {
 										<input type="checkbox" name="study" value='3' onchange="setCheck(this, 'study')">
 									</div>
 									<div>
-										<a href='report.php?study=3'><div>متوسطة <span class="tag is-light"><?php echo $nums_row['num'] ?></span></div></a>
+										<a href='report.php?study=3'><div>معهد <span class="tag is-light"><?php echo $nums_row['num'] ?></span></div></a>
 									</div>
 								</div>
 								
@@ -337,7 +347,33 @@ if (!isset($_SESSION['admin'])) {
 										<input type="checkbox" name="study" value='4' onchange="setCheck(this, 'study')">
 									</div>
 									<div>
-										<a href='report.php?study=4'><div>ابتدائية <span class="tag is-light"><?php echo $nums_row['num'] ?></span></div></a>
+										<a href='report.php?study=4'><div>إعدادية <span class="tag is-light"><?php echo $nums_row['num'] ?></span></div></a>
+									</div>
+								</div>
+								
+								<?php
+								$moh_qry = $conn->query("SELECT COUNT(*) AS num FROM forms WHERE study=5");
+		  	$nums_row = $moh_qry->fetch_assoc();
+								?>
+								<div class="filter">
+									<div>
+										<input type="checkbox" name="study" value='5' onchange="setCheck(this, 'study')">
+									</div>
+									<div>
+										<a href='report.php?study=5'><div>متوسطة <span class="tag is-light"><?php echo $nums_row['num'] ?></span></div></a>
+									</div>
+								</div>
+								
+								<?php
+								$moh_qry = $conn->query("SELECT COUNT(*) AS num FROM forms WHERE study=6");
+		  	$nums_row = $moh_qry->fetch_assoc();
+								?>
+								<div class="filter">
+									<div>
+										<input type="checkbox" name="study" value='6' onchange="setCheck(this, 'study')">
+									</div>
+									<div>
+										<a href='report.php?study=6'><div>ابتدائية <span class="tag is-light"><?php echo $nums_row['num'] ?></span></div></a>
 									</div>
 								</div>
 								
@@ -452,7 +488,7 @@ if (!isset($_SESSION['admin'])) {
 				<option value="0" selected>اختر</option>
 
 				<option value="1">طالب</option>
-				<option value="2">موظفي حكومي</option>
+				<option value="2">موظف حكومي</option>
 				<option value="3">كاسب</option>
 				<option value="4">اخرى</option>
 			</select>
@@ -463,10 +499,12 @@ if (!isset($_SESSION['admin'])) {
 			<select name="study">
 				<option value="0" selected>اختر</option>
 
-				<option value="1">دراسة جامعية</option>
-				<option value="2">معهد او اعدادية</option>
-				<option value="3">متوسطة</option>
-				<option value="4">ابتدائية</option>
+				<option value="1">دراسات عليا</option>
+				<option value="2">جامعة</option>
+				<option value="3">معهد</option>
+				<option value="4">إعدادية</option>
+				<option value="5">متوسطة</option>
+				<option value="6">ابتدائية</option>
 			</select>
 			<div class="error" id="errorstudy"></div>
 	    </div>

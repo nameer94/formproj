@@ -13,6 +13,38 @@
 </head>
 <body>
 
+			
+
+	<div class="first yes" id="first">
+		<div class="header">اﻟﺎﺳﺘﻤﺎرة اﻟﺎﻟﻜﺘﺮوﻧﻴﺔ</div>
+		<img src="css/logo.png" />
+		<div class="first_div">
+
+			<p style="color: #395FAE;">تقديم</p>
+			<p style="margin-top: 20px; padding-left: 10px; margin-right: 10px;">ﻫﻞ اي ﻣﻦ اﻓﺮاد اﻟﺎﺳﺮة: ﻣﻮﻇﻒ, ﻣﺘﻘﺎﻋﺪ, راﺗﺐ رﻋﺎﻳﺔ اﺟﺘﻤﺎﻋﻴﺔ, راﺗﺐ اﺧﺮ ﻣﻦ اﻟﺤﻜﻮﻣﺔ:</p>
+			<div class="radio">
+				<button onclick="document.querySelector('#firstyes').style.display = 'flex';document.querySelector('#first').style.display = 'none'">
+					<span></span>
+					<span>نعم</span>
+				</button>
+				<button onclick="showTerms()">
+					<span></span>
+					<span>لا</span>
+				</button>
+			</div>
+
+			<p style="margin-top: 20px; color: #395FAE;">او</p>
+
+			    <div class="field" style="margin-top: 20px">
+					<label>تحقق من القبول</label>
+					<input type="text" id="idnumber" placeholder="الرقم" onchange="console.log('sub')" />
+			    </div>
+				<div class="submit_div">
+					<button onclick="chekId();">تحقق</button>
+				</div>
+		</div>
+	</div>
+
 	<div class="first" id="terms">
 		<div class="header">اﻟﺎﺳﺘﻤﺎرة اﻟﺎﻟﻜﺘﺮوﻧﻴﺔ</div>
 		<img src="css/logo.png" />
@@ -29,14 +61,21 @@
 			?>
 			<div class="notification is-danger is-light">حدث خطأ يرجى اعادة المحاولة</div>
 			<?php } ?>
-			
-			<p style="padding-left: 10px; margin-right: 10px;">اخلاء مسئولية
-<br/>- يقوم الموقع بحفظ كافة المعلومات المدخلة ليتم مراجعتها لاحقا.
-<br/>- تأكد من ادخال معلوماتك الصحيحة وفي حالة استخدامك لمعلومات وهميه او معلومات شخصا آخر سيتم محاسبتك قانونيا.
-<br/>- يجب مراجعة الموقع والتأكد من قبولك لاحقا.
-<br/>- الاستمارات يتم مراجعتها ثم يتم الرد بالقبول او الرفض (في حالة ضهور النتيجة "في الانتضار" فهذا يعني انها لا زالت في مرحلة المراجعة) قد تستغرق مراجعة الطلب من اسبوع الى شهر.
-<br/>- سوف يتم التأكد من رقم هاتفك فتأكد من ان رقم هاتفك في الخدمة.
-<br/>- يجب ان لا يكون اي من افراد الاسرة: ﻣﻮﻇﻒ, ﻣﺘﻘﺎﻋﺪ, لديه راﺗﺐ رﻋﺎﻳﺔ اﺟﺘﻤﺎﻋﻴﺔ او راﺗﺐ اﺧﺮ ﻣﻦ اﻟﺤﻜﻮﻣﺔ.</p>
+
+			<p style="padding-left: 10px; margin-right: 10px;">ملاحظات هامة:
+<br/>- المنحة مخصصة للأسر التي تمر بظروف مادية صعبة بسبب انتشار الوباء وحظر التجوال وتأثر فرص العمل ، ولا تشمل الفئات التي تستلم رواتب او اي دخل اخر من الحكومة ، ولا تشمل الميسورين.
+
+<br/>- لنتكافل جميعاً: الرجاء عدم التقديم من قبل غير المحتاجين المستحقين للمنحة ، هناك من هو بحاجة ماسة وهو أولى منك. 
+
+<br/>- سوف يتم التأكد من رقم هاتفك ، فتأكد من ان رقم هاتفك يعمل بشكل صحيح. ولا تقدم اكثر من مرة.
+
+<br/>- استعد قبل البدء بعملية التقديم: ستحتاج الى الوثائق الشخصية الثبوتية الخاصة بك وباسرتك والبطاقة التموينية اثناء عملية التقديم.
+
+<br/>- تأكد من ادخال معلوماتك الصحيحة وفي حالة استخدامك لمعلومات وهمية او لمعلومات شخص آخر او اخفاء اية معلومات مطلوبة فستعرض نفسك الى المحاسبة القانونية والعقوبات القضائية. 
+
+<br/>- يقوم الموقع بحفظ كافة المعلومات المدخلة لتتم مراجعتها لاحقا وتدقيقها مع الجهات الحكومية.</p>
+			<p style="padding-left: 10px; margin-right: 10px; color: #d43535">- ان قيامك بعملية التقديم يعني تعهدك بقراءة وفهم هذه التعليمات وموافقتك على الشروط والأحكام المتعلقة بالمنحة.</p>
+			<p style="padding-left: 10px; margin-right: 10px; color: #d43535">- يجب ان لا يكون اي من افراد الاسرة ممن يستلم راتبا من الحكومة: ﻣﻮﻇﻒ ، او ﻣﺘﻘﺎﻋﺪ ، أو مشمول بشبكة الحماية الاجتماعية، او يستلم اي راﺗﺐ او دخل اﺧﺮ ﻣﻦ اﻟﺤﻜﻮﻣﺔ.</p>
 		<div class="buttons" style="margin-top: 20px;">
 		  <button class="button is-link" onclick="chooseNo()">اوافق</button>
 		  <button class="button" style="margin-right: 10px" onclick="document.querySelector('#firstyes').style.display = 'flex';document.querySelector('#terms').style.display = 'none'">رفض</button>
@@ -56,7 +95,7 @@
 		<div class="header">اﻟﺎﺳﺘﻤﺎرة اﻟﺎﻟﻜﺘﺮوﻧﻴﺔ</div>
 		<img src="css/logo.png" />
 		<div class="first_div">
-			<p>تأكيد رقم الهاتف</p>
+			<p>تأكيد رقم الهاتف النقال</p>
     		<div id="firebaseui-auth-container"></div>
 		</div>
 	</div>

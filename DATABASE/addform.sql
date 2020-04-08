@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 08, 2020 at 02:55 PM
+-- Generation Time: Apr 09, 2020 at 12:02 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.4
 
@@ -80,6 +80,7 @@ CREATE TABLE `forms` (
   `memdata` longtext NOT NULL,
   `members` int(2) NOT NULL DEFAULT 0,
   `moh` int(2) NOT NULL,
+  `akt` int(2) NOT NULL,
   `dday` int(2) NOT NULL,
   `dmonth` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
