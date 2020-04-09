@@ -6,18 +6,18 @@ session_start();
 	$values = "";
 	$exist = false;
 	$error = false;
-	if(is_numeric($_GET['idNum']) == false AND is_numeric($_GET['id2Num']) == false){
+	if(is_numeric($_POST['idNum']) == false AND is_numeric($_POST['id2Num']) == false){
 		header("Location: ../index.php?err=2");
 	}
-	if(is_numeric($_GET['idNum']) == true AND $_GET['idNum'] != 0 AND $_GET['idt'] = 1){
-		$id = $conn->real_escape_string($_GET['idNum']);
+	if(is_numeric($_POST['idNum']) == true AND $_POST['idNum'] != 0 AND $_POST['idt'] = 1){
+		$id = $conn->real_escape_string($_POST['idNum']);
 		$chkid_qry = $conn->query("SELECT id FROM forms WHERE idNum='$id'");
 		if($chkid_qry->num_rows > 0){
 			$exist = true;
 		}
 	}
-	if(is_numeric($_GET['id2Num']) == true AND $_GET['id2Num'] != 0 AND $_GET['idt'] = 2){
-		$id2 = $conn->real_escape_string($_GET['id2Num']);
+	if(is_numeric($_POST['id2Num']) == true AND $_POST['id2Num'] != 0 AND $_POST['idt'] = 2){
+		$id2 = $conn->real_escape_string($_POST['id2Num']);
 		$chkid2_qry = $conn->query("SELECT id FROM forms WHERE id2Num='$id2'");
 		if($chkid2_qry->num_rows > 0){
 			$exist = true;
@@ -25,7 +25,7 @@ session_start();
 	}
 
 	if($exist == false){
-		foreach($_GET as $key => $value) {
+		foreach($_POST as $key => $value) {
 			if($key != 'token'){
 			    $feilds = $feilds.', '.$conn->real_escape_string($key);
 			    if($key == 'idNum' OR $key == 'id2Num'){
