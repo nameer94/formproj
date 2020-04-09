@@ -1,6 +1,5 @@
 <?php
 session_start();
-if(isset($_GET['token']) AND $_GET['token'] == $_SESSION['rantoken']){
 	include 'dbconnect.php';
 
 	$feilds = "";
@@ -77,7 +76,4 @@ if(isset($_GET['token']) AND $_GET['token'] == $_SESSION['rantoken']){
 	}else{
 		header("Location: ../exist.php");
 	}
-}else{
-	header("Location: ../index.php?err=2");
-}
 ?>
